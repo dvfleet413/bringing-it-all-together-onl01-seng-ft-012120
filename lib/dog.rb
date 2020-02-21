@@ -66,6 +66,6 @@ class Dog
       WHERE name = ? AND breed = ?
     SQL
     dog = DB[:conn].execute(sql, name, breed)
-    binding.pry
+    dog.empty? ? self.create(name: name, breed: breed) : self.new_from_db(dog)
   end 
 end
