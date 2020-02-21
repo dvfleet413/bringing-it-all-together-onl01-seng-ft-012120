@@ -68,4 +68,12 @@ class Dog
     dog = DB[:conn].execute(sql, name, breed)
     dog.empty? ? self.create(name: name, breed: breed) : self.new_from_db(dog[0])
   end 
+  
+  def self.find_by_name(name)
+    sql = <<-SQL
+      SELECT * FROM dogs
+      WHERE name = ?
+    SQL
+    dog = DB[:conn].execute(sql, name)[0]
+    self.new_from_db(dog)
 end
